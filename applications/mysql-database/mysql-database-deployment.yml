@@ -1,0 +1,30 @@
+apiVersion: apps/v1 # Uses the apps/v1 API group (for controllers like Deployment, StatefulSet, etc.)
+kind: Deployment # Declares this manifest as a Deployment resource
+metadata: # Metadata section
+  name: mysql-database # Name of the Deployment → "mysql-database"
+spec: # Specification of the Deployment
+  replicas: 1 # Desired number of Pod replicas → only 1 MySQL Pod
+  selector: # Defines how to identify the Pods managed by this Deployment
+    matchLabels: # Labels to match
+      app: mysql-database # Must match Pods with label app=mysql-database
+  template: # Template for creating Pods
+    metadata: # Metadata for the Pod template
+      labels: # Labels applied to created Pods
+        app: mysql-database # Label app=mysql-database (must match selector above)
+    spec: # Pod specification (like a normal Pod manifest)
+      containers: # List of containers in the Pod
+        - name: mysql-container # Container name → "mysql-container"
+          image: mysql:8 # Docker image to use → MySQL version 8
+          envFrom: # Load environment variables for the container
+            - configMapRef: # Reference to a ConfigMap
+                name: mysql-database-config # Name of the ConfigMap → "mysql-database-config"
+          ports: # Ports exposed by the container
+            - containerPort: 3306 # MySQL default TCP port
+              name: mysql-port # Name of the port mapping → "mysql-port"
+          volumeMounts: # Mount volumes inside the container
+            - name: mysql-data-volume # Refers to volume defined below
+              mountPath: /var/lib/mysql # MySQL data directory inside container
+      volumes: # Volumes available to the Pod
+        - name: mysql-data-volume # Volume name referenced above
+          persistentVolumeClaim: # Use a PersistentVolumeClaim
+            claimName: mysql-database-storage # PVC name → "mysql-database-storage" (must exist separately)

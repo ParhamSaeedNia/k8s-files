@@ -1,0 +1,26 @@
+apiVersion: apps/v1 # Uses the apps/v1 API group (for controllers like Deployment)
+kind: Deployment # Declares this manifest as a Deployment resource
+metadata: # Metadata section
+  name: mysql-alternative # Name of the Deployment → "mysql-alternative"
+spec: # Specification of the Deployment
+  replicas: 1 # Desired number of Pod replicas → only 1 MySQL Pod
+  selector: # Defines how to identify the Pods managed by this Deployment
+    matchLabels: # Labels to match
+      app: mysql-alternative # Must match Pods with label app=mysql-alternative
+  template: # Template for creating Pods
+    metadata: # Metadata for the Pod template
+      labels: # Labels applied to created Pods
+        app: mysql-alternative # Label app=mysql-alternative (must match selector above)
+    spec: # Pod specification (like a normal Pod manifest)
+      containers: # List of containers in the Pod
+        - name: mysql-container # Container name → "mysql-container"
+          image: mysql:8 # Docker image to use → MySQL version 8
+          env: # Environment variables for the container
+            - name: MYSQL_ROOT_PASSWORD # Environment variable name
+              valueFrom: # Get value from another source
+                configMapKeyRef: # Reference to a specific key in a ConfigMap
+                  name: mysql-alternative-config # Name of the ConfigMap → "mysql-alternative-config"
+                  key: MYSQL_PASSWORD # Key within the ConfigMap → "MYSQL_PASSWORD"
+          ports: # Ports exposed by the container
+            - containerPort: 3306 # MySQL default TCP port
+              name: mysql-port # Name of the port mapping → "mysql-port"

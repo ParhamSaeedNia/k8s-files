@@ -1,0 +1,45 @@
+apiVersion: apps/v1 # Uses the apps/v1 API group (for controllers like Deployment)
+kind: Deployment # Declares this manifest as a Deployment resource
+metadata: # Metadata section
+  name: nginx-web-server # Name of the Deployment → "nginx-web-server"
+spec: # Specification of the Deployment
+  replicas: 1 # Desired number of Pod replicas → only 1 nginx Pod
+  selector: # Defines how to identify the Pods managed by this Deployment
+    matchLabels: # Labels to match
+      app: nginx-web-server # Must match Pods with label app=nginx-web-server
+  template: # Template for creating Pods
+    metadata: # Metadata for the Pod template
+      labels: # Labels applied to created Pods
+        app: nginx-web-server # Label app=nginx-web-server (must match selector above)
+    spec: # Pod specification (like a normal Pod manifest)
+      containers: # List of containers in the Pod
+        - name: nginx-container # Container name → "nginx-container"
+          image: nginx:latest # Docker image to use → latest nginx image
+          ports: # Ports exposed by the container
+            - containerPort: 80 # nginx default HTTP port
+          livenessProbe: # Health check to determine if container is alive
+            httpGet: # Use HTTP GET request for health check
+              path: / # Check the root path
+              port: 80 # Check on port 80
+            initialDelaySeconds: 30 # Wait 30 seconds before first check
+            periodSeconds: 5 # Check every 5 seconds
+            successThreshold: 1 # 1 successful check = healthy
+            failureThreshold: 5 # 5 failed checks = unhealthy (restart container)
+          readinessProbe: # Health check to determine if container is ready to serve traffic
+            httpGet: # Use HTTP GET request for readiness check
+              path: /health # Check the /health path (custom endpoint)
+              port: 80 # Check on port 80
+            initialDelaySeconds: 30 # Wait 30 seconds before first check
+            periodSeconds: 5 # Check every 5 seconds
+            successThreshold: 5 # 5 successful checks = ready
+            failureThreshold: 5 # 5 failed checks = not ready
+          envFrom: # Load environment variables for the container
+            - configMapRef: # Reference to a ConfigMap
+                name: nginx-web-config # Name of the ConfigMap → "nginx-web-config"
+          volumeMounts: # Mount volumes inside the container
+            - name: nginx-web-content # Refers to volume defined below
+              mountPath: /usr/share/nginx/html # nginx web root directory
+      volumes: # Volumes available to the Pod
+        - name: nginx-web-content # Volume name referenced above
+          persistentVolumeClaim: # Use a PersistentVolumeClaim
+            claimName: nginx-web-storage # PVC name → "nginx-web-storage" (must exist separately)

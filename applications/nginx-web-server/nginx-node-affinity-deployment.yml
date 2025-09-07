@@ -1,0 +1,28 @@
+apiVersion: apps/v1 # Uses the apps/v1 API group (for controllers like Deployment)
+kind: Deployment # Declares this manifest as a Deployment resource
+metadata: # Metadata section
+  name: nginx-node-affinity # Name of the Deployment → "nginx-node-affinity"
+spec: # Specification of the Deployment
+  replicas: 1 # Desired number of Pod replicas → only 1 nginx Pod
+  selector: # Defines how to identify the Pods managed by this Deployment
+    matchLabels: # Labels to match
+      app: nginx-node-affinity # Must match Pods with label app=nginx-node-affinity
+  template: # Template for creating Pods
+    metadata: # Metadata for the Pod template
+      labels: # Labels applied to created Pods
+        app: nginx-node-affinity # Label app=nginx-node-affinity (must match selector above)
+    spec: # Pod specification (like a normal Pod manifest)
+      containers: # List of containers in the Pod
+        - name: nginx-container # Container name → "nginx-container"
+          image: nginx:latest # Docker image to use → latest nginx image
+          ports: # Ports exposed by the container
+            - containerPort: 80 # nginx default HTTP port
+      affinity: # Advanced scheduling rules for Pod placement
+        nodeAffinity: # Rules for which nodes the Pod can be scheduled on
+          requiredDuringSchedulingIgnoredDuringExecution: # Hard requirement (must be met)
+            nodeSelectorTerms: # List of node selector terms (OR logic)
+              - matchExpressions: # List of expressions (AND logic)
+                  - key: zone # Node label key to match
+                    operator: In # Operator: In, NotIn, Exists, DoesNotExist, Gt, Lt
+                    values: # List of values to match against
+                      - test # Pod will only run on nodes with label zone=test

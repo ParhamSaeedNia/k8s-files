@@ -1,0 +1,10 @@
+apiVersion: v1 # Uses the core Kubernetes API group (v1) for basic objects like Pods
+kind: Pod # Declares this manifest as a Pod resource
+metadata: # Metadata section (identity information for the object)
+  name: test-nginx-pod # Name of the Pod → "test-nginx-pod"
+  labels: # Labels to categorize/select the Pod
+    app: test-nginx # A label key/value pair: app=test-nginx
+spec: # Specification of the Pod (desired state)
+  containers: # List of containers inside this Pod
+    - name: nginx-container # The container's name inside the Pod → "nginx-container"
+      image: nginx # Container image → official Nginx image from Docker Hub

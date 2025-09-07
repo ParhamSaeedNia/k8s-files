@@ -1,0 +1,17 @@
+apiVersion: apps/v1 # API version for Deployment resources
+kind: Deployment # Defines a Deployment
+metadata: # Identification
+  name: simple-nginx-deployment # Deployment name: simple-nginx-deployment
+spec: # Deployment specification
+  replicas: 3 # Maintains 3 identical Pod instances
+  selector: # How to find Pods to manage
+    matchLabels: # Label selection criteria
+      app: simple-nginx # Manages Pods with label "app=simple-nginx"
+  template: # Pod template for new replicas
+    metadata: # Labels for created Pods
+      labels: # Applies these labels to new Pods
+        app: simple-nginx # Critical label: app=simple-nginx
+    spec: # Pod specification
+      containers: # Containers in the Pod
+        - name: nginx-container # Container name
+          image: nginx # Uses nginx image
