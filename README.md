@@ -4,7 +4,7 @@ This directory contains Kubernetes manifests organized by application groups for
 
 ## 📁 Directory Structure
 
-### 🗄️ `applications/mysql-database/`
+### 🗄️ `manifests/mysql-database/`
 
 Complete MySQL database application with all related resources:
 
@@ -14,7 +14,7 @@ Complete MySQL database application with all related resources:
 - **`mysql-alternative-configmap.yml`** - Alternative ConfigMap with different key name
 - **`mysql-alternative-deployment.yml`** - Alternative deployment using specific ConfigMap key reference
 
-### 🌐 `applications/nginx-web-server/`
+### 🌐 `manifests/nginx-web-server/`
 
 Complete nginx web server application with various deployment patterns:
 
@@ -26,7 +26,7 @@ Complete nginx web server application with various deployment patterns:
 - **`nginx-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
 - **`simple-nginx-deployment.yml`** - Basic nginx deployment with 3 replicas
 
-### 🔧 `applications/standalone-pods/`
+### 🔧 `manifests/standalone-pods/`
 
 Individual Pod examples and their services:
 
@@ -72,14 +72,14 @@ Individual Pod examples and their services:
 1. **Deploy a complete application:**
 
    ```bash
-   kubectl apply -f applications/mysql-database/
-   kubectl apply -f applications/nginx-web-server/
+   kubectl apply -f manifests/mysql-database/
+   kubectl apply -f manifests/nginx-web-server/
    ```
 
 2. **Deploy individual resources:**
 
    ```bash
-   kubectl apply -f applications/standalone-pods/basic-nginx-pod.yml
+   kubectl apply -f manifests/standalone-pods/basic-nginx-pod.yml
    ```
 
 3. **Check resource status:**
