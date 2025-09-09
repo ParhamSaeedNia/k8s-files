@@ -1,17 +1,22 @@
-apiVersion: apps/v1 # API version for Deployment resources
-kind: Deployment # Defines a Deployment
-metadata: # Identification
-  name: simple-nginx-deployment # Deployment name: simple-nginx-deployment
-spec: # Deployment specification
-  replicas: 3 # Maintains 3 identical Pod instances
-  selector: # How to find Pods to manage
-    matchLabels: # Label selection criteria
-      app: simple-nginx # Manages Pods with label "app=simple-nginx"
-  template: # Pod template for new replicas
-    metadata: # Labels for created Pods
-      labels: # Applies these labels to new Pods
-        app: simple-nginx # Critical label: app=simple-nginx
+apiVersion: apps/v1 # Specifies the API version for Deployment resources (apps/v1 is stable and recommended)
+kind: Deployment # Declares that this manifest defines a Deployment resource
+metadata: # Metadata about the Deployment
+  name: nginx-deployment # Name of the Deployment (used for identification inside the cluster)
+
+spec: # Specification of the desired state for the Deployment
+  replicas: 1 # Number of Pod replicas to run at the same time (ensures high availability)
+  selector: # Defines how the Deployment finds which Pods it manages
+    matchLabels: # Selector criteria based on labels
+      app: nginx # The Deployment will manage Pods with this label
+
+  template: # Template describing the Pods that will be created
+    metadata: # Metadata for the Pod
+      labels: # Labels attached to the Pods
+        app: nginx # Must match the selector above (important for the Deployment to track Pods)
     spec: # Pod specification
-      containers: # Containers in the Pod
-        - name: nginx-container # Container name
-          image: nginx # Uses nginx image
+      containers: # List of containers to run in each Pod
+        - name: nginx # Name of the container inside the Pod
+          image: nginx:latest # Container image (default official Nginx image from Docker Hub, using latest tag)
+          ports: # Ports exposed by the container
+            - containerPort: 80 # Exposes port 80 (default HTTP port) so the service can route traffic here
+

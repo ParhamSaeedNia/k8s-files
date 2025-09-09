@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1 # Uses the networking.k8s.io/v1 API group for Ingress resources
+kind: Ingress # Declares this manifest as an Ingress resource
+metadata: # Metadata section
+  name: nginx-web-ingress # Name of the Ingress → "nginx-web-ingress"
+spec: # Specification of the Ingress
+  ingressClassName: nginx # Specifies which Ingress controller to use → "nginx"
+  rules: # List of routing rules
+    - host: nginx-web.example.com # Hostname for this rule → "nginx-web.example.com"
+      http: # HTTP routing configuration
+        paths: # List of path-based routing rules
+          - path: / # Path to match → "/" (root path)
+            pathType: Prefix # How to match the path → "Prefix" (matches / and subpaths)
+            backend: # Where to route traffic
+              service: # Backend service configuration
+                name: nginx-web-service # Service name → "nginx-web-service" (must exist)
+                port: # Service port configuration
+                  number: 80 # Port number → 80
+

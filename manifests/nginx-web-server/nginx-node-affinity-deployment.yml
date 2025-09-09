@@ -17,6 +17,11 @@ spec: # Specification of the Deployment
           image: nginx:latest # Docker image to use → latest nginx image
           ports: # Ports exposed by the container
             - containerPort: 80 # nginx default HTTP port
+      tolerations:
+        - key: "app"
+          value: "test1"
+          operator: "Equal"
+          effect: "NoSchedule"       
       affinity: # Advanced scheduling rules for Pod placement
         nodeAffinity: # Rules for which nodes the Pod can be scheduled on
           requiredDuringSchedulingIgnoredDuringExecution: # Hard requirement (must be met)
@@ -25,4 +30,4 @@ spec: # Specification of the Deployment
                   - key: zone # Node label key to match
                     operator: In # Operator: In, NotIn, Exists, DoesNotExist, Gt, Lt
                     values: # List of values to match against
-                      - test # Pod will only run on nodes with label zone=test
+                    - test # Pod will only run on nodes with label zone=test
