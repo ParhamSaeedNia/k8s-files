@@ -24,6 +24,9 @@ Complete nginx web server application with various deployment patterns:
 - **`nginx-web-storage.yml`** - PersistentVolumeClaim for nginx content
 - **`nginx-node-selector-deployment.yml`** - nginx deployment with nodeSelector
 - **`nginx-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
+- **`nginx-specific-node-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
+- **`nginx-web-ingress.yml`** - Ingress resource for HTTP/HTTPS routing with hostname and path rules
+- **`nginx-web-service-for-ingress.yml`** - ClusterIP service for Ingress backend
 - **`simple-nginx-deployment.yml`** - Basic nginx deployment with 3 replicas
 
 ### 🔧 `manifests/standalone-pods/`
@@ -66,6 +69,14 @@ Individual Pod examples and their services:
 
 - **nodeSelector**: Hard requirement for specific node labels
 - **nodeAffinity**: Advanced scheduling rules (required/preferred)
+- **nodeName**: Direct node assignment (bypasses scheduler)
+
+### Ingress
+
+- HTTP/HTTPS routing with hostname rules
+- Path-based routing with different path types
+- Service backend configuration
+- Ingress controller integration
 
 ## 🚀 How to Use
 
