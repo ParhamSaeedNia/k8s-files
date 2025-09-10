@@ -1,11 +1,11 @@
 apiVersion: v1 # Uses the core Kubernetes API group (v1)
 kind: PersistentVolumeClaim # Declares this manifest as a PVC (PersistentVolumeClaim)
 metadata: # Metadata section
-  name: nginx-web-persistent-storage # Name of the PVC → "nginx-web-persistent-storage"
+  name: nginx-web-persistent-storage # Name of the PVC
 spec: # Specification of the claim (desired storage characteristics)
   resources: # Resource requirements
     requests: # What this PVC is requesting from a PV
-      storage: 50Mi # Requesting 50Mi (megabytes) of storage
+      storage: 50Mi # Requesting 50Mi of storage
   accessModes: # Defines how the volume can be mounted by Pods
-    - ReadWriteMany # Volume can be mounted read-write by many nodes/Pods at the same time
-  volumeName: nginx-web-persistent-volume # Explicitly binds this claim to a PersistentVolume named "nginx-web-persistent-volume"
+    - ReadWriteMany # Volume can be mounted read-write by many nodes/Pods
+  volumeName: nginx-web-persistent-volume # Explicitly binds this claim to a PersistentVolume

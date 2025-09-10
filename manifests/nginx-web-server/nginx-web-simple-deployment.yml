@@ -4,7 +4,7 @@ metadata: # Metadata about the Deployment
   name: nginx-web-simple-deployment # Name of the Deployment (used for identification inside the cluster)
 
 spec: # Specification of the desired state for the Deployment
-  replicas: 1 # Number of Pod replicas to run at the same time (ensures high availability)
+  replicas: 1 # Number of Pod replicas to run at the same time
   selector: # Defines how the Deployment finds which Pods it manages
     matchLabels: # Selector criteria based on labels
       app: nginx-web-simple # The Deployment will manage Pods with this label
@@ -18,5 +18,5 @@ spec: # Specification of the desired state for the Deployment
         - name: nginx-web-container # Name of the container inside the Pod
           image: nginx:latest # Container image (default official Nginx image from Docker Hub, using latest tag)
           ports: # Ports exposed by the container
-            - containerPort: 80 # Exposes port 80 (default HTTP port) so the service can route traffic here
+            - containerPort: 80 # Exposes port 80 (default HTTP port) for service routing
 

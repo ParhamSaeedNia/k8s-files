@@ -1,20 +1,20 @@
 apiVersion: apps/v1 # Uses the apps/v1 API group (for controllers like Deployment)
 kind: Deployment # Declares this manifest as a Deployment resource
 metadata: # Metadata section
-  name: nginx-web-node-selector-deployment # Name of the Deployment → "nginx-web-node-selector-deployment"
+  name: nginx-web-node-selector-deployment # Name of the Deployment
 spec: # Specification of the Deployment
-  replicas: 1 # Desired number of Pod replicas → only 1 nginx Pod
+  replicas: 1 # Desired number of Pod replicas
   selector: # Defines how to identify the Pods managed by this Deployment
     matchLabels: # Labels to match
-      app: nginx-web-node-selector # Must match Pods with label app=nginx-web-node-selector
+      app: nginx-web-node-selector # Must match Pods with this label
   template: # Template for creating Pods
     metadata: # Metadata for the Pod template
       labels: # Labels applied to created Pods
-        app: nginx-web-node-selector # Label app=nginx-web-node-selector (must match selector above)
+        app: nginx-web-node-selector # Label must match selector above
     spec: # Pod specification (like a normal Pod manifest)
       containers: # List of containers in the Pod
-        - name: nginx-web-container # Container name → "nginx-web-container"
-          image: nginx:latest # Docker image to use → latest nginx image
+        - name: nginx-web-container # Container name
+          image: nginx:latest # Docker image to use
           ports: # Ports exposed by the container
             - containerPort: 80 # nginx default HTTP port
       nodeSelector: # Forces Pod to be scheduled on specific nodes

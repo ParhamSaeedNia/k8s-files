@@ -18,16 +18,19 @@ Complete MySQL database application with all related resources:
 
 Complete nginx web server application with various deployment patterns:
 
-- **`nginx-configmap.yml`** - HTML content for nginx index page
+- **`nginx-web-html-configmap.yml`** - HTML content for nginx index page
 - **`nginx-web-deployment.yml`** - Full-featured nginx deployment with health checks, volumes, and ConfigMap
-- **`nginx-web-service.yml`** - NodePort service to expose nginx
-- **`nginx-web-storage.yml`** - PersistentVolumeClaim for nginx content
-- **`nginx-node-selector-deployment.yml`** - nginx deployment with nodeSelector
-- **`nginx-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
-- **`nginx-specific-node-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
+- **`nginx-web-service-nodeport.yml`** - NodePort service to expose nginx externally
+- **`nginx-web-persistent-storage.yml`** - PersistentVolumeClaim for nginx content
+- **`nginx-web-node-selector-deployment.yml`** - nginx deployment with nodeSelector
+- **`nginx-web-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
+- **`nginx-web-nodename-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
+- **`nginx-web-specific-node-deployment.yml`** - nginx deployment with specific node assignment
 - **`nginx-web-ingress.yml`** - Ingress resource for HTTP/HTTPS routing with hostname and path rules
-- **`nginx-web-service-for-ingress.yml`** - ClusterIP service for Ingress backend
-- **`simple-nginx-deployment.yml`** - Basic nginx deployment with 3 replicas
+- **`nginx-web-ingress-alternative.yml`** - Alternative Ingress configuration (renamed from parham-ingress.yml)
+- **`nginx-web-service-clusterip.yml`** - ClusterIP service for Ingress backend
+- **`nginx-web-service-for-ingress.yml`** - Additional ClusterIP service for Ingress
+- **`nginx-web-simple-deployment.yml`** - Basic nginx deployment with minimal configuration
 
 ### 🔧 `manifests/standalone-pods/`
 
@@ -102,11 +105,13 @@ Individual Pod examples and their services:
 
 All resources now use descriptive, consistent naming:
 
-- **ConfigMaps**: `{application}-config` or `{application}-{type}-config`
-- **Deployments**: `{application}-deployment` or `{application}-{type}-deployment`
-- **Services**: `{application}-service` or `{application}-{type}-service`
-- **Storage**: `{application}-storage` or `{application}-{type}-storage`
-- **Containers**: `{application}-container`
+- **ConfigMaps**: `{application}-{purpose}-configmap` (e.g., `nginx-web-html-configmap`)
+- **Deployments**: `{application}-{type}-deployment` (e.g., `nginx-web-simple-deployment`, `nginx-web-node-affinity-deployment`)
+- **Services**: `{application}-service-{type}` (e.g., `nginx-web-service-nodeport`, `nginx-web-service-clusterip`)
+- **Storage**: `{application}-{type}-storage` (e.g., `nginx-web-persistent-storage`)
+- **Ingress**: `{application}-ingress` or `{application}-ingress-{variant}` (e.g., `nginx-web-ingress-alternative`)
+- **Containers**: `{application}-container` (e.g., `nginx-web-container`)
+- **App Labels**: `{application}-{purpose}` (e.g., `nginx-web-simple`, `nginx-web-node-affinity`)
 
 ## 🔗 Resource Relationships
 
@@ -116,3 +121,14 @@ Each application folder contains all related resources that work together:
 - Services select Pods using matching labels
 - Deployments reference PVCs for persistent storage
 - All names are consistent across related resources
+
+## ✨ Recent Improvements
+
+**Naming Standardization (Latest Update):**
+
+- Removed personal names (e.g., `parham-ingress.yml` → `nginx-web-ingress-alternative.yml`)
+- Standardized all container names to `nginx-web-container`
+- Improved service naming to distinguish types (`nginx-web-service-nodeport`, `nginx-web-service-clusterip`)
+- Enhanced deployment names with descriptive suffixes (`nginx-web-simple-deployment`, `nginx-web-node-affinity-deployment`)
+- Updated all cross-references between resources to maintain consistency
+- Made all app labels follow the pattern `nginx-web-{purpose}` for better organization

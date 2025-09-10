@@ -1,6 +1,6 @@
 apiVersion: v1 # Uses the core v1 API (ConfigMap belongs to it)
 kind: ConfigMap # Declares this manifest as a ConfigMap
 metadata: # Metadata section
-  name: nginx-web-html-configmap # Name of the ConfigMap → "nginx-web-html-configmap"
+  name: nginx-web-html-configmap # Name of the ConfigMap
 data: # Key-value pairs stored in the ConfigMap
   index.html: <h1>Hello</h1> # HTML content for nginx index page
