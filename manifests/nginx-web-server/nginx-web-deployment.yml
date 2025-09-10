@@ -13,7 +13,7 @@ spec: # Specification of the Deployment
         app: nginx-web-server # Label app=nginx-web-server (must match selector above)
     spec: # Pod specification (like a normal Pod manifest)
       containers: # List of containers in the Pod
-        - name: nginx-container # Container name → "nginx-container"
+        - name: nginx-web-container # Container name → "nginx-web-container"
           image: nginx:latest # Docker image to use → latest nginx image
           ports: # Ports exposed by the container
             - containerPort: 80 # nginx default HTTP port
@@ -35,11 +35,11 @@ spec: # Specification of the Deployment
             failureThreshold: 5 # 5 failed checks = not ready
           envFrom: # Load environment variables for the container
             - configMapRef: # Reference to a ConfigMap
-                name: nginx-web-config # Name of the ConfigMap → "nginx-web-config"
+                name: nginx-web-html-configmap # Name of the ConfigMap → "nginx-web-html-configmap"
           volumeMounts: # Mount volumes inside the container
             - name: nginx-web-content # Refers to volume defined below
               mountPath: /usr/share/nginx/html # nginx web root directory
       volumes: # Volumes available to the Pod
         - name: nginx-web-content # Volume name referenced above
           persistentVolumeClaim: # Use a PersistentVolumeClaim
-            claimName: nginx-web-storage # PVC name → "nginx-web-storage" (must exist separately)
+            claimName: nginx-web-persistent-storage # PVC name → "nginx-web-persistent-storage" (must exist separately)

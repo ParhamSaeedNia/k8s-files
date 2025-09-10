@@ -1,20 +1,20 @@
-apiVersion: apps/v1              # Uses the apps/v1 API group (for controllers like Deployment)
-kind: Deployment                 # Declares this manifest as a Deployment resource
-metadata:                        # Metadata section
-  name: nginx-specific-node      # Name of the Deployment → "nginx-specific-node"
-spec:                            # Specification of the Deployment
-  replicas: 1                    # Desired number of Pod replicas → only 1 nginx Pod
-  selector:                      # Defines how to identify the Pods managed by this Deployment
-    matchLabels:                 # Labels to match
-      app: nginx-specific-node   # Must match Pods with label app=nginx-specific-node
-  template:                      # Template for creating Pods
-    metadata:                    # Metadata for the Pod template
-      labels:                    # Labels applied to created Pods
-        app: nginx-specific-node # Label app=nginx-specific-node (must match selector above)
-    spec:                        # Pod specification (like a normal Pod manifest)
-      containers:                # List of containers in the Pod
-        - name: nginx-container  # Container name → "nginx-container"
-          image: nginx:latest    # Docker image to use → latest nginx image
-          ports:                 # Ports exposed by the container
-            - containerPort: 80  # nginx default HTTP port
-      nodeName: "k8s-class-worker1"  # Forces Pod to run on specific node (bypasses scheduler)
+apiVersion: apps/v1 # Uses the apps/v1 API group (for controllers like Deployment)
+kind: Deployment # Declares this manifest as a Deployment resource
+metadata: # Metadata section
+  name: nginx-web-specific-node-deployment # Name of the Deployment → "nginx-web-specific-node-deployment"
+spec: # Specification of the Deployment
+  replicas: 1 # Desired number of Pod replicas → only 1 nginx Pod
+  selector: # Defines how to identify the Pods managed by this Deployment
+    matchLabels: # Labels to match
+      app: nginx-web-specific-node # Must match Pods with label app=nginx-web-specific-node
+  template: # Template for creating Pods
+    metadata: # Metadata for the Pod template
+      labels: # Labels applied to created Pods
+        app: nginx-web-specific-node # Label app=nginx-web-specific-node (must match selector above)
+    spec: # Pod specification (like a normal Pod manifest)
+      containers: # List of containers in the Pod
+        - name: nginx-web-container # Container name → "nginx-web-container"
+          image: nginx:latest # Docker image to use → latest nginx image
+          ports: # Ports exposed by the container
+            - containerPort: 80 # nginx default HTTP port
+      nodeName: "k8s-class-worker1" # Forces Pod to run on specific node (bypasses scheduler)

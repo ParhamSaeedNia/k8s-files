@@ -1,21 +1,21 @@
 apiVersion: apps/v1 # Specifies the API version for Deployment resources (apps/v1 is stable and recommended)
 kind: Deployment # Declares that this manifest defines a Deployment resource
 metadata: # Metadata about the Deployment
-  name: nginx-deployment # Name of the Deployment (used for identification inside the cluster)
+  name: nginx-web-simple-deployment # Name of the Deployment (used for identification inside the cluster)
 
 spec: # Specification of the desired state for the Deployment
   replicas: 1 # Number of Pod replicas to run at the same time (ensures high availability)
   selector: # Defines how the Deployment finds which Pods it manages
     matchLabels: # Selector criteria based on labels
-      app: nginx # The Deployment will manage Pods with this label
+      app: nginx-web-simple # The Deployment will manage Pods with this label
 
   template: # Template describing the Pods that will be created
     metadata: # Metadata for the Pod
       labels: # Labels attached to the Pods
-        app: nginx # Must match the selector above (important for the Deployment to track Pods)
+        app: nginx-web-simple # Must match the selector above (important for the Deployment to track Pods)
     spec: # Pod specification
       containers: # List of containers to run in each Pod
-        - name: nginx # Name of the container inside the Pod
+        - name: nginx-web-container # Name of the container inside the Pod
           image: nginx:latest # Container image (default official Nginx image from Docker Hub, using latest tag)
           ports: # Ports exposed by the container
             - containerPort: 80 # Exposes port 80 (default HTTP port) so the service can route traffic here

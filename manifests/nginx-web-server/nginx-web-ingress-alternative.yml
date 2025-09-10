@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1 # Uses the networking.k8s.io/v1 API group for Ingress resources
 kind: Ingress # Declares this manifest as an Ingress resource
 metadata: # Metadata section
-  name: nginx-web-ingress # Name of the Ingress → "nginx-web-ingress"
+  name: nginx-web-ingress-alternative # Name of the Ingress → "nginx-web-ingress-alternative"
 spec: # Specification of the Ingress
   ingressClassName: nginx # Specifies which Ingress controller to use → "nginx"
   rules: # List of routing rules
