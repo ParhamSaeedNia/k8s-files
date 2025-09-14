@@ -8,4 +8,3 @@ spec: # Specification of the claim (desired storage characteristics)
       storage: 50Mi # Requesting 50Mi of storage
   accessModes: # Defines how the volume can be mounted by Pods
     - ReadWriteMany # Volume can be mounted read-write by many nodes/Pods
-  volumeName: nginx-web-persistent-volume # Explicitly binds this claim to a PersistentVolume

@@ -5,7 +5,7 @@ metadata: # Metadata section
 spec: # Specification of the Ingress
   ingressClassName: nginx # Specifies which Ingress controller to use
   rules: # List of routing rules
-    - host: nginx-web.example.com # Hostname for this rule
+    - host: nginx-web-alternative.example.com # Hostname for this rule
       http: # HTTP routing configuration
         paths: # List of path-based routing rules
           - path: / # Path to match (root path)
