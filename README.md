@@ -20,12 +20,12 @@ Complete nginx web server application with various deployment patterns:
 
 - **`nginx-web-html-configmap.yml`** - HTML content for nginx index page
 - **`nginx-web-deployment.yml`** - Full-featured nginx deployment with health checks, volumes, and ConfigMap
-- **`nginx-web-service-nodeport.yml`** - NodePort service to expose nginx externally
+- **`nginx-web-service.yml`** - NodePort service to expose nginx externally
 - **`nginx-web-persistent-storage.yml`** - PersistentVolumeClaim for nginx content
-- **`nginx-web-node-selector-deployment.yml`** - nginx deployment with nodeSelector
-- **`nginx-web-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
-- **`nginx-web-nodename-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
-- **`nginx-web-specific-node-deployment.yml`** - nginx deployment with specific node assignment
+- **`nginx-node-selector-deployment.yml`** - nginx deployment with nodeSelector
+- **`nginx-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
+- **`nginx-nodename-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
+- **`nginx-specific-node-deployment.yml`** - nginx deployment with specific node assignment
 - **`nginx-web-ingress.yml`** - Ingress resource for HTTP/HTTPS routing with hostname and path rules
 - **`nginx-web-ingress-alternative.yml`** - Alternative Ingress configuration (renamed from parham-ingress.yml)
 - **`nginx-web-service-clusterip.yml`** - ClusterIP service for Ingress backend
