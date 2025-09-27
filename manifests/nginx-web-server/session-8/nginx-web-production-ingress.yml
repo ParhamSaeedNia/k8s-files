@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1 # Uses the networking.k8s.io/v1 API group for Ingress resources
+kind: Ingress # Declares this manifest as an Ingress resource for HTTP/HTTPS routing
+metadata: # Metadata section containing identification information
+  name: nginx-web-production-ingress # Name of the Ingress resource
+  annotations: # Additional configuration for the ingress controller
+    nginx.ingress.kubernetes.io/rewrite-target: / # Rewrites URL paths (removes /app prefix)
+spec: # Specification of the Ingress routing rules
+  ingressClassName: nginx # Specifies which Ingress controller to use (nginx)
+  rules: # List of routing rules for different hosts and paths
+    - host: nginx-web.bpmellat.com # Hostname for this rule (domain name)
+      http: # HTTP routing configuration
+        paths: # List of path-based routing rules
+          - path: /app # Path to match (URL path prefix)
+            pathType: Prefix # How to match the path (matches /app and subpaths)
+            backend: # Where to route traffic when path matches
+              service: # Backend service configuration
+                name: nginx-web-service # Service name (must exist)
+                port: # Service port configuration
+                  number: 80 # Port number to forward to
+  tls: # TLS/SSL configuration for HTTPS
+    - hosts: # List of hosts that this TLS configuration applies to
+        - nginx-web.bpmellat.com # Hostname for TLS certificate
+      secretName: bpmellat.secret # Name of the secret containing TLS certificate
