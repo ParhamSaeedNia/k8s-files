@@ -18,19 +18,31 @@ Complete MySQL database application with all related resources:
 
 Complete nginx web server application with various deployment patterns:
 
+**Core Resources:**
+
 - **`nginx-web-html-configmap.yml`** - HTML content for nginx index page
 - **`nginx-web-deployment.yml`** - Full-featured nginx deployment with health checks, volumes, and ConfigMap
 - **`nginx-web-service.yml`** - NodePort service to expose nginx externally
 - **`nginx-web-persistent-storage.yml`** - PersistentVolumeClaim for nginx content
-- **`nginx-node-selector-deployment.yml`** - nginx deployment with nodeSelector
-- **`nginx-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
-- **`nginx-nodename-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
-- **`nginx-specific-node-deployment.yml`** - nginx deployment with specific node assignment
 - **`nginx-web-ingress.yml`** - Ingress resource for HTTP/HTTPS routing with hostname and path rules
 - **`nginx-web-ingress-alternative.yml`** - Alternative Ingress configuration (renamed from parham-ingress.yml)
 - **`nginx-web-service-clusterip.yml`** - ClusterIP service for Ingress backend
 - **`nginx-web-service-for-ingress.yml`** - Additional ClusterIP service for Ingress
-- **`nginx-web-simple-deployment.yml`** - Basic nginx deployment with minimal configuration
+
+**Node Scheduling Examples:**
+
+- **`nginx-node-selector-deployment.yml`** - nginx deployment with nodeSelector
+- **`nginx-node-affinity-deployment.yml`** - nginx deployment with nodeAffinity (required)
+- **`nginx-nodename-deployment.yml`** - nginx deployment with nodeName (direct node assignment)
+- **`nginx-specific-node-deployment.yml`** - nginx deployment with specific node assignment
+
+**Session 8 - Advanced Patterns:**
+
+- **`session-8/nginx-web-deployment.yml`** - Basic nginx deployment with 3 replicas
+- **`session-8/nginx-web-service.yml`** - ClusterIP service for session 8 deployment
+- **`session-8/nginx-web-production-ingress.yml`** - Production ingress with TLS and path rewriting
+- **`session-8/statefulset/nginx-web-stateful-set.yml`** - StatefulSet with ordered deployment
+- **`session-8/statefulset/nginx-web-headless-service.yml`** - Headless service for StatefulSet
 
 ### 🔧 `manifests/standalone-pods/`
 
@@ -81,6 +93,13 @@ Individual Pod examples and their services:
 - Service backend configuration
 - Ingress controller integration
 
+### StatefulSets
+
+- Ordered deployment and scaling
+- Stable network identity
+- Persistent storage per pod
+- Headless services for direct pod access
+
 ## 🚀 How to Use
 
 1. **Deploy a complete application:**
@@ -124,11 +143,19 @@ Each application folder contains all related resources that work together:
 
 ## ✨ Recent Improvements
 
-**Naming Standardization (Latest Update):**
+**Session 8 - Advanced Kubernetes Patterns (Latest Update):**
+
+- **Added Session 8 folder** with advanced deployment patterns
+- **StatefulSet implementation** with ordered deployment and stable network identity
+- **Headless services** for direct pod access in StatefulSets
+- **Production ingress** with TLS configuration and path rewriting
+- **Comprehensive comments** added to all files for educational purposes
+- **Improved naming conventions** with simplified, consistent resource names
+- **Fixed resource relationships** ensuring all cross-references are correct
+
+**Previous Improvements:**
 
 - Removed personal names (e.g., `parham-ingress.yml` → `nginx-web-ingress-alternative.yml`)
 - Standardized all container names to `nginx-web-container`
-- Improved service naming to distinguish types (`nginx-web-service-nodeport`, `nginx-web-service-clusterip`)
-- Enhanced deployment names with descriptive suffixes (`nginx-web-simple-deployment`, `nginx-web-node-affinity-deployment`)
+- Enhanced deployment names with descriptive suffixes
 - Updated all cross-references between resources to maintain consistency
-- Made all app labels follow the pattern `nginx-web-{purpose}` for better organization

@@ -15,4 +15,3 @@ spec: # Specification of the Ingress
                 name: nginx-web-service-clusterip # Service name (must exist)
                 port: # Service port configuration
                   number: 80 # Port number
-
