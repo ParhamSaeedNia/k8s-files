@@ -44,6 +44,11 @@ Complete nginx web server application with various deployment patterns:
 - **`session-8/statefulset/nginx-web-stateful-set.yml`** - StatefulSet with ordered deployment
 - **`session-8/statefulset/nginx-web-headless-service.yml`** - Headless service for StatefulSet
 
+**Session 9 - Resource Management:**
+
+- **`session-9/nginx-web-deployment-resource.yml`** - Deployment with CPU and memory resource limits
+- **`session-9/nginx-web-deployment-resource-service.yml`** - Service for resource-managed deployment
+
 ### 🔧 `manifests/standalone-pods/`
 
 Individual Pod examples and their services:
@@ -100,6 +105,13 @@ Individual Pod examples and their services:
 - Persistent storage per pod
 - Headless services for direct pod access
 
+### Resource Management
+
+- CPU and memory requests and limits
+- Preventing noisy neighbor issues
+- Resource quotas and constraints
+- Quality of Service (QoS) classes
+
 ## 🚀 How to Use
 
 1. **Deploy a complete application:**
@@ -143,7 +155,15 @@ Each application folder contains all related resources that work together:
 
 ## ✨ Recent Improvements
 
-**Session 8 - Advanced Kubernetes Patterns (Latest Update):**
+**Session 9 - Resource Management (Latest Update):**
+
+- **Added Session 9 folder** with resource management patterns
+- **CPU and memory limits** to prevent noisy neighbor issues
+- **Resource requests and limits** for guaranteed and maximum resource allocation
+- **Quality of Service (QoS)** classes for pod prioritization
+- **Comprehensive comments** explaining resource management concepts
+
+**Session 8 - Advanced Kubernetes Patterns:**
 
 - **Added Session 8 folder** with advanced deployment patterns
 - **StatefulSet implementation** with ordered deployment and stable network identity
