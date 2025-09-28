@@ -15,6 +15,13 @@ spec: # Specification of the Deployment
       containers: # List of containers in the Pod
         - name: nginx-web-container # Container name
           image: nginx:latest # Docker image to use
+          resources: # Resource limits and requests
+            requests: # Minimum resources required
+              memory: "64Mi"
+              cpu: "50m"
+            limits: # Maximum resources allowed
+              memory: "128Mi"
+              cpu: "100m"
           ports: # Ports exposed by the container
             - containerPort: 80 # nginx default HTTP port
           livenessProbe: # Health check to determine if container is alive
@@ -33,13 +40,13 @@ spec: # Specification of the Deployment
             periodSeconds: 5 # Check every 5 seconds
             successThreshold: 5 # 5 successful checks = ready
             failureThreshold: 5 # 5 failed checks = not ready
-          envFrom: # Load environment variables for the container
-            - configMapRef: # Reference to a ConfigMap
-                name: nginx-web-html-configmap # Name of the ConfigMap
           volumeMounts: # Mount volumes inside the container
             - name: nginx-web-content # Refers to volume defined below
               mountPath: /usr/share/nginx/html # nginx web root directory
       volumes: # Volumes available to the Pod
         - name: nginx-web-content # Volume name referenced above
-          persistentVolumeClaim: # Use a PersistentVolumeClaim
-            claimName: nginx-web-persistent-storage # PVC name (must exist separately)
+          configMap: # Use a ConfigMap instead of PVC
+            name: nginx-index # ConfigMap name
+            items:
+              - key: index.html
+                path: index.html
